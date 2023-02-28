@@ -1,8 +1,8 @@
 <?php 
 
 class DBConnect {
-    const USUARIO = 'root';
-    const PASSWORD = '';
+    const USUARIO = 'admin';
+    const PASSWORD = '12345';
     const URL = 'localhost';
     const DB = 'control_notas';
     
