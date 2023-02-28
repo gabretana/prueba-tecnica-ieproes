@@ -2,6 +2,8 @@
 
 require_once('../dbconnect.php');
 
+test_connection();
+
 function test_connection()
 {
     $con = DBConnect();
