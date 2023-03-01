@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Notas</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+
+    <body>
+
+        <header class="w3-container w3-green">
+            <h3>Notas</h3>
+        </header>
+
+        <div class="w3-container w3-padding">
+            <select id="asignaturas_select" class="w3-right w3-margin-left" onchange="cambiar_asignatura(this)">
+                <option w3-repeat="asignaturas">{{asignatura}}</option>
+            </select>
+
+            <select id="periodos_select" class="w3-right" onchange="cambiar_periodo(this)">
+                <option w3-repeat="periodos">{{periodo}}</option>
+            </select>
+        </div>
+
+        <div class="w3-container w3-padding">
+
+            <div class="w3-responsive">
+                <table id="tabla_alumnos" class="w3-table-all w3-centered">
+                    <thead>
+                        <tr>
+                            <th>Apellidos</th>
+                            <th>Nombres</th>
+                            <th>Nota</th>
+                            <th></th>
+                        </tr>
+                        <tr w3-repeat="notas_por_alumno">
+                            <td>{{apellidos}}</td>
+                            <td>{{nombres}}</td>
+                            <td><input type="number" name="nota_input" id="nota_input" min="0" max="10" step="0.1" value="{{nota}}" /></td>
+                            <td><button class="w3-button w3-light-green" data-id="{{id}}" onclick="editar_nota(this)">Editar</button></td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+
+        <script src="https://www.w3schools.com/lib/w3.js"></script>
+        <script src="js/main.js"></script>
+
+    </body>
+</html>
