@@ -10,11 +10,9 @@ CREATE TABLE IF NOT EXISTS alumno(
 
 CREATE TABLE IF NOT EXISTS actividad(
   id int NOT NULL AUTO_INCREMENT,
-  nombre varchar(255) NOT NULL,
   asignatura varchar(255) NOT NULL,
+  nota decimal(15,1) NOT NULL,
   periodo varchar(255) NOT NULL,
-  nota float NOT NULL,
-  porcentaje tinyint NOT NULL,
   alumno_id int NOT NULL,
   PRIMARY KEY(id),
   FOREIGN KEY(alumno_id)
