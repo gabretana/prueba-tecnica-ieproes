@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS alumno(
   primary key(id)
 );
 
-CREATE TABLE IF NOT EXISTS actividad(
+CREATE TABLE IF NOT EXISTS calificacion(
   id int NOT NULL AUTO_INCREMENT,
   asignatura varchar(255) NOT NULL,
   nota decimal(15,1) NOT NULL,
