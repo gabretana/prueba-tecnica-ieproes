@@ -33,16 +33,13 @@ class Actividad extends Tabla
         if (!$this->estado)
             return false;
 
-        $sql = 'UPDATE calificacion SET asignatura=?,nota=?,periodo=?,alumno_id=?';
+        $sql = 'UPDATE calificacion SET nota=:nota';
 
         $sql .= ' WHERE id=:id';
 
         $stmt = $this->dbc->conexion->prepare($sql);
 
-        $stmt->bindParam(1, $this->asignatura);
-        $stmt->bindParam(2, $this->nota);
-        $stmt->bindParam(3, $this->periodo);
-        $stmt->bindParam(4, $this->alumno_id);
+        $stmt->bindParam(':nota', $this->nota);
 
         $stmt->bindParam(':id', $this->id);
 
@@ -59,7 +56,7 @@ class Actividad extends Tabla
         if (!$this->estado)
             return false;
 
-        $sql = 'SELECT id,nombre,asignatura,nota FROM calificacion';
+        $sql = 'SELECT id, CONCAT(nombres, " ", apellidos) as nombre, nota FROM calificacion INNER JOIN alumno';
         $stmt = null;
 
         if (count($condicion) > 0) {
