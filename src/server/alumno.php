@@ -52,23 +52,6 @@ class Alumno extends Tabla
         return $this->estado;
     }
 
-    public function eliminar()
-    {
-        if (!$this->estado)
-            return false;
-
-        $stmt = $this->dbc->conexion->prepare('DELETE FROM alumno WHERE id=?');
-        $stmt->bindParam(1, $this->id);
-
-        $this->estado = $stmt->execute();
-        $this->cerrarConexion();
-
-        $this->error = implode(' ', $stmt->errorInfo());
-        $stmt = null;
-
-        return $this->estado;
-    }
-
     public function obtener($condicion = array())
     {
         if (!$this->estado)

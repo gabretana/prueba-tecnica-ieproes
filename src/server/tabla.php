@@ -36,6 +36,24 @@ abstract class CRUD
 
     }
 
+    public function eliminar(string $tabla, int $id)
+    {
+        if (!$this->estado)
+            return false;
+
+        $stmt = $this->dbc->conexion->prepare('DELETE FROM ? WHERE id=?');
+        $stmt->bindParam(1, $tabla);
+        $stmt->bindParam(2, $id);
+
+        $this->estado = $stmt->execute();
+        $this->cerrarConexion();
+
+        $this->error = implode(' ', $stmt->errorInfo());
+        $stmt = null;
+
+        return $this->estado;
+    }
+
     public function cerrarConexion()
     {
         $this->dbc->cerrar_conexion();
