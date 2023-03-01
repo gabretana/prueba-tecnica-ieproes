@@ -4,7 +4,7 @@ document.onload = () => {
     }, 1000);
 
     setTimeOut(() => {
-        w3.getHttpObject('server/service.php?alumnos=true');
+        w3.getHttpObject('server/service.php?alumnos=true', cargar_alumnos)
     }, 2000);
 }
 
@@ -50,6 +50,7 @@ let cargar_alumnos = (alumnos) => {
 
 let insertar_calificacion = () => {
     const form = new FormData(document.getElementById('actividad_form'));
+    form.append('insertar_calificacion', 0);
 
     const xhr = new XMLHttpRequest();
 
