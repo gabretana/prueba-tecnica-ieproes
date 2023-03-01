@@ -1,15 +1,11 @@
 document.onload = () => {
     setTimeOut(() => {
-        w3.getHttpObject('server/service.php?asignaturas=true', cargar_asignaturas);
-    }, 500);
-
-    setTimeOut(() => {
-        w3.getHttpObject('server/service.php?periodos=true', cargar_periodos);
+        cambiar_asignatura(document.getElementById('asignaturas_select'));
     }, 1000);
 
     setTimeOut(() => {
-        cambiar_asignatura(document.getElementById('asignaturas_select'));
-    }, 1500);
+        w3.getHttpObject('server/service.php?alumnos=true');
+    }, 2000);
 }
 
 let login = () => {
@@ -48,10 +44,26 @@ let cambiar_asignatura = (element) => {
     w3.getHttpObject(`server/service.php?actividades=true&asignatura=${nombre_asignatura}&periodo=${nombre_periodo}`, cargar_notas);
 }
 
-let cargar_asignaturas = (asignaturas) => {
-    w3.displayObject('asignaturas_select', asignaturas);
+let cargar_alumnos = (alumnos) => {
+    w3.displayObject('alumnos_select', alumnos);
 }
 
-let cargar_periodos = (periodos) => {
-    w3.displayObject('periodos_select', periodos);
+let insertar_calificacion = () => {
+    const form = new FormData(document.getElementById('actividad_form'));
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.addEventListener('load', (event) => {
+        alert('Nota añadiad correctamente.');
+    });
+
+    xhr.addEventListener('error', (event) => {
+        alert('No fue posible insertar la nota');
+    });
+
+    xhr.open('POST', 'server/service.php');
+
+    xhr.send(form);
+
+    document.getElementById('actividad_dialog').style.display = 'none';
 }

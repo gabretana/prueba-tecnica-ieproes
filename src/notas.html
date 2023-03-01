@@ -16,12 +16,19 @@
 
         <div class="w3-container w3-padding">
             <select id="asignaturas_select" class="w3-right w3-margin-left" onchange="cambiar_asignatura(this)">
-                <option w3-repeat="asignaturas">{{asignatura}}</option>
+                <option>Matemáticas</option>
+                <option>Ciencia y Tecnología</option>
+                <option>Estudios Sociales</option>
+                <option>Lenguaje</option>
             </select>
 
             <select id="periodos_select" class="w3-right" onchange="cambiar_periodo(this)">
-                <option w3-repeat="periodos">{{periodo}}</option>
+                <option>Período 1</option>
+                <option>Período 2</option>
+                <option>Período 3</option>
             </select>
+
+            <button class="w3-btn w3-blue">Añadir actividad</button>
         </div>
 
         <div class="w3-container w3-padding">
@@ -45,6 +52,44 @@
                 </table>
             </div>
 
+        </div>
+
+        <div id="actividad_dialog" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+                <form id="actividad_form" class="w3-container" action="/action_page.php">
+                    <div class="w3-section">
+                        <label><strong>Asignatura:</strong></label>
+                        <select name="asignaturas" form="actividad_form">
+                            <option>Matématicas</option>
+                            <option>Ciencia y Tecnología</option>
+                            <option>Estudios Sociales</option>
+                            <option>Lenguaje</option>
+                        </select><br /> <br />
+
+                        <label><strong>Período</strong></label>
+                        <select name="periodos" form="actividad_form">
+                            <option>Período 1</option>
+                            <option>Período 2</option>
+                            <option>Período 3</option>
+                        </select><br /> <br />
+
+                        <label><strong>Nota:</strong></label>
+                        <input type="number" name="nota_input" id="nota" min="0" max="10" step="0.1" value="0" /><br /> <br />
+
+                        <label><strong>Alumno</strong></label>
+                        <select id="alumnos_select" form="actividad_form">
+                            <option w3-repeat="alumnos" value="{{id}}">{{nombres}}</option>
+                        </select>
+                    </div>
+                </form>
+
+                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                    <button onclick="insertar_calificacion()" type="button" class="w3-btn w3-indigo">Añadir</button>
+                    <button onclick="document.getElementById('actividad_dialog').style.display='none'" type="button" class="w3-btn w3-red">Cancelar</button>
+                </div>
+
+            </div>
         </div>
 
         <script src="https://www.w3schools.com/lib/w3.js"></script>
