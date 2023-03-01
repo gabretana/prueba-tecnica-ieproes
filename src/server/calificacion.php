@@ -2,22 +2,23 @@
 
 require_once('tabla.php');
 
-class Alumno extends Tabla
+class Actividad extends Tabla
 {
-    public $id, $nombres, $apellidos, $fecha_nacimiento;
+    public $id, $asignatura, $nota, $periodo, $alumno_id;
 
     public function insertar()
     {
         if (!$this->estado)
             return false;
-        
-        $sql = 'INSERT INTO alumno(nombres,apellidos,fecha_nacimiento) VALUES(?,?,?)';
+
+        $sql = 'INSERT INTO actividad(asignatura,nota,periodo,alumno_id) VALUES(?,?,?,?)';
 
         $stmt = $this->dbc->conexion->prepare($sql);
 
-        $stmt->bindParam(1, $this->nombres);
-        $stmt->bindParam(2, $this->apellidos);
-        $stmt->bindParam(3, $this->fecha_nacimiento);
+        $stmt->bindParam(1, $this->asignatura);
+        $stmt->bindParam(2, $this->nota);
+        $stmt->bindParam(3, $this->periodo);
+        $stmt->bindParam(4, $this->alumno_id);
 
         $this->estado = $stmt->execute();
         $this->cerrarConexion();
@@ -27,12 +28,38 @@ class Alumno extends Tabla
         return $this->estado;
     }
 
+    public function actualizar()
+    {
+        if (!$this->estado)
+            return false;
+
+        $sql = 'UPDATE calificacion SET asignatura=?,nota=?,periodo=?,alumno_id=?';
+
+        $sql .= ' WHERE id=:id';
+
+        $stmt = $this->dbc->conexion->prepare($sql);
+
+        $stmt->bindParam(1, $this->asignatura);
+        $stmt->bindParam(2, $this->nota);
+        $stmt->bindParam(3, $this->periodo);
+        $stmt->bindParam(4, $this->alumno_id);
+
+        $stmt->bindParam(':id', $this->id);
+
+        $this->estado = $stmt->execute();
+        $this->cerrarConexion();
+        $this->error = implode(' ', $stmt->errorInfo());
+        $stmt = null;
+
+        return $this->estado;
+    }
+
     public function obtener($condicion = array())
     {
         if (!$this->estado)
             return false;
 
-        $sql = 'SELECT id,nombres,apellidos,fecha_nacimiento FROM alumno';
+        $sql = 'SELECT id,nombre,asignatura,nota FROM calificacion';
         $stmt = null;
 
         if (count($condicion) > 0) {
@@ -50,7 +77,7 @@ class Alumno extends Tabla
                 }
 
                 $stmt = $this->dbc->conexion->prepare($sql);
-                
+
                 for ($i = 1; $i <= $count; $i++) {
                     $stmt->bindParam($i, $items[$i - 1]);
                 }
